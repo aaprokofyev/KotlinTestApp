@@ -12,11 +12,14 @@ import android.view.ViewGroup
 import cmg.com.mykotlinapp.R
 import cmg.com.mykotlinapp.adapter.MyUserRecyclerViewAdapter
 
-import cmg.com.mykotlinapp.dummy.DummyContent
-import cmg.com.mykotlinapp.dummy.DummyContent.DummyItem
+import cmg.com.mykotlinapp.datamodel.UserContent
+import cmg.com.mykotlinapp.datamodel.User
 
 
-class UserFragment : Fragment() {
+class UsersFragment : Fragment() {
+
+    public val TAG: String = UsersFragment::class.java.simpleName
+
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
 
@@ -40,7 +43,7 @@ class UserFragment : Fragment() {
             } else {
                 view.layoutManager = GridLayoutManager(context, mColumnCount)
             }
-            view.adapter = MyUserRecyclerViewAdapter(DummyContent.ITEMS, mListener)
+            view.adapter = MyUserRecyclerViewAdapter(UserContent.ITEMS, mListener)
         }
         return view
     }
@@ -60,26 +63,16 @@ class UserFragment : Fragment() {
         mListener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
-     */
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem)
+        fun onListFragmentInteraction(item: User)
     }
 
     companion object {
 
         private val ARG_COLUMN_COUNT = "column-count"
 
-        fun newInstance(columnCount: Int): UserFragment {
-            val fragment = UserFragment()
+        fun newInstance(columnCount: Int): UsersFragment {
+            val fragment = UsersFragment()
             val args = Bundle()
             args.putInt(ARG_COLUMN_COUNT, columnCount)
             fragment.arguments = args

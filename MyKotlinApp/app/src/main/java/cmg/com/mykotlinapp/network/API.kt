@@ -22,6 +22,6 @@ object API {
 
     interface EndpointInterface {
         @GET("users/")
-        fun getUsers(@Query("since") sinceId: String): Call<List<User>>
+        fun getUsers(@Query("since") sinceId: String?): Call<List<User>>
     }
 }

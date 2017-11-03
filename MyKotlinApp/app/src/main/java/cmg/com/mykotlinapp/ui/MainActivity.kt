@@ -4,9 +4,15 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import cmg.com.mykotlinapp.R
+import cmg.com.mykotlinapp.datamodel.User
+import cmg.com.mykotlinapp.datamodel.UserContent
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), UsersFragment.OnListFragmentInteractionListener {
+
+    override fun onListFragmentInteraction(item: User) {
+        //do nothing
+    }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -17,10 +23,10 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_users -> {
-                var userListFragment = UserFragment.newInstance(1)
+                val userListFragment = UsersFragment.newInstance(1)
                 supportFragmentManager
                         .beginTransaction()
-                        .show(userListFragment)
+                        .replace(R.id.fragmentContainer, userListFragment, UsersFragment::TAG.toString())
                         .commit();
                 return@OnNavigationItemSelectedListener true
             }

@@ -10,5 +10,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="cmg.com.mykotlinapp.ui.UserFragment"
+    tools:context="cmg.com.mykotlinapp.ui.UsersFragment"
     tools:listitem="@layout/fragment_user"/>
