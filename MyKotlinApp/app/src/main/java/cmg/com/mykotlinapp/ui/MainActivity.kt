@@ -1,11 +1,11 @@
 package cmg.com.mykotlinapp.ui
 
+import android.app.FragmentManager
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import cmg.com.mykotlinapp.R
 import cmg.com.mykotlinapp.datamodel.User
-import cmg.com.mykotlinapp.datamodel.UserContent
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), UsersFragment.OnListFragmentInteractionListener {
@@ -17,9 +17,13 @@ class MainActivity : AppCompatActivity(), UsersFragment.OnListFragmentInteractio
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
+                supportFragmentManager
+                        .popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
+                supportFragmentManager
+                        .popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_users -> {

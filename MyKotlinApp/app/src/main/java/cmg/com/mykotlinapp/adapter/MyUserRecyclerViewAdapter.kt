@@ -9,9 +9,22 @@ import cmg.com.mykotlinapp.R
 
 import cmg.com.mykotlinapp.ui.UsersFragment.OnListFragmentInteractionListener
 import cmg.com.mykotlinapp.datamodel.User
+import cmg.com.mykotlinapp.datamodel.UserContent
 
 
-class MyUserRecyclerViewAdapter(private val mValues: List<User>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder>() {
+class MyUserRecyclerViewAdapter(private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder>(), UserContent.DataChangeListener {
+    override fun onDataChanged() {
+        notifyDataSetChanged()
+    }
+
+    init {
+        UserContent.addUpdateListener(this)
+    }
+
+    fun removeListener(){
+        UserContent.removeUpdateListener(this)
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.getContext())
@@ -20,12 +33,12 @@ class MyUserRecyclerViewAdapter(private val mValues: List<User>, private val mLi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.mItem = mValues.get(position)
-        holder.mIdView.setText(mValues.get(position).id)
-        holder.mContentView.setText(mValues.get(position).login)
+        holder.mItem = UserContent.ITEMS.get(position)
+        holder.mIdView.setText(UserContent.ITEMS.get(position).id)
+        holder.mContentView.setText(UserContent.ITEMS.get(position).login)
 
         holder.mView.setOnClickListener(object : View.OnClickListener {
-            public override fun onClick(v: View) {
+            override fun onClick(v: View) {
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
@@ -36,7 +49,7 @@ class MyUserRecyclerViewAdapter(private val mValues: List<User>, private val mLi
     }
 
     override fun getItemCount(): Int {
-        return mValues.size
+        return UserContent.ITEMS.size
     }
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
